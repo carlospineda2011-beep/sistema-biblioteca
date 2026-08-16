@@ -1,60 +1,74 @@
-# Sistema de Biblioteca
+# Sistema de Gestión de Biblioteca
 
-Sistema de gestión de biblioteca desarrollado en PHP con MySQL, que permite administrar libros, usuarios y préstamos.
+Mini-aplicación en PHP orientada a objetos para gestionar libros, usuarios y préstamos de una biblioteca.
 
 ## Funcionalidades
 
 ### Gestión de Libros
-- Agregar libros con título, autor, ISBN y cantidad de copias
-- Listar todos los libros registrados
+- Agregar libros (título, autor, ISBN, cantidad)
+- Listar libros disponibles
 
 ### Gestión de Usuarios
-- Registrar usuarios con nombre, email y teléfono
-- Listar todos los usuarios registrados
+- Registrar usuarios (nombre, email, teléfono)
+- Listar usuarios
 
 ### Gestión de Préstamos
-- Registrar préstamos de libros a usuarios, con fecha de préstamo
-- Listar todos los préstamos con su estado (activo/devuelto)
+- Registrar préstamo de un libro a un usuario (actualiza el stock automáticamente)
+- Registrar devolución (actualiza fecha de devolución, estado, y repone el stock)
+- Ver listado de préstamos activos
 
 ## Tecnologías utilizadas
 
-- PHP (con MySQLi y sentencias preparadas para prevenir inyección SQL)
+- PHP con PDO (sentencias preparadas para prevenir inyección SQL)
 - MySQL
+- Programación orientada a objetos
 - HTML
+
+## Estructura del proyecto
+
+biblioteca/
+├── classes/
+│   ├── Database.php     # Conexión PDO a la base de datos
+│   ├── Biblioteca.php   # Lógica CRUD completa (libros, usuarios, préstamos)
+│   ├── Libro.php        # Modelo de datos: Libro
+│   ├── Usuario.php      # Modelo de datos: Usuario
+│   └── Prestamo.php     # Modelo de datos: Préstamo
+├── index.php             # Interfaz web (navegación por ?action=)
+├── biblioteca.sql        # Script de creación de la base de datos
+└── README.md
+
 
 ## Instalación y configuración
 
 ### Requisitos previos
-- XAMPP (con Apache y MySQL)
-- Un navegador web
+- XAMPP (Apache + MySQL)
 
-### Pasos de instalación
+### Pasos
 
-1. Cloná este repositorio dentro de la carpeta `htdocs` de tu instalación de XAMPP:
+1. Cloná este repositorio dentro de la carpeta `htdocs` de XAMPP:
 
-git clone https://github.com/carlospineda2011-beep/sistema-biblioteca
+git clone https://github.com/carlospineda2011-beep/sistema-biblioteca.git
 
-2. Iniciá **Apache** y **MySQL** desde el panel de control de XAMPP.
 
-3. Abrí phpMyAdmin en tu navegador (`http://localhost/phpmyadmin`).
+2. Iniciá **Apache** y **MySQL** desde el panel de XAMPP.
 
-4. Creá una base de datos nueva llamada `biblioteca`.
+3. Abrí phpMyAdmin (`http://localhost/phpmyadmin`) y creá una base de datos llamada `biblioteca`.
 
-5. Andá a la pestaña **SQL** de esa base de datos, pegá el contenido del archivo `biblioteca.sql` incluido en este repositorio, y ejecutalo. Esto creará las tablas `libros`, `usuarios` y `prestamos`.
+4. En la pestaña **SQL** de esa base, pegá y ejecutá el contenido de `biblioteca.sql`.
 
-6. Abrí el archivo `Conexion.php` y confirmá que los datos de conexión coincidan con tu configuración local (por defecto: usuario `root`, sin contraseña).
+5. Confirmá que `classes/Database.php` tenga los datos correctos de tu conexión local (por defecto: usuario `root`, sin contraseña).
 
-7. Accedé al sistema desde tu navegador:
+6. Accedé al sistema desde el navegador:
+
 http://localhost/biblioteca/index.php
 
-## Estructura del proyecto
 
-- `Conexion.php` — Clase para la conexión a la base de datos
-- `Libro.php` — Clase con las operaciones CRUD de libros
-- `Usuario.php` — Clase con las operaciones CRUD de usuarios
-- `Prestamo.php` — Clase con las operaciones CRUD de préstamos
-- `index.php` — Página principal con los formularios y listados
-- `biblioteca.sql` — Script SQL para crear la base de datos y sus tablas
+## Navegación
+
+El sistema usa un parámetro `?action=` en la URL para moverse entre secciones:
+- `index.php` — Libros (sección por defecto)
+- `index.php?action=usuarios` — Usuarios
+- `index.php?action=prestamos` — Préstamos
 
 ## Autor
 
